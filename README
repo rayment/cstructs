@@ -1,0 +1,10 @@
+cstructs - collection of cross-platform C data structures
+
+---------------------------------------------------
+
+cstructs is a collection of source and header files for commonly implemented
+data structures, written in C to eliminate boilerplate code.
+
+cstructs is licensed under BSD 3-Clause.
+All license information is available in the included COPYING file.
+
