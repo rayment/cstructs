@@ -22,8 +22,8 @@ node_s
 struct
 linkedlist_s
 {
-	struct node_s *head, *tail;
-	size_t len;
+	struct node_s *head, *tail, *iter;
+	size_t len, iterpos;
 };
 
 /*

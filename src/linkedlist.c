@@ -8,6 +8,51 @@
 
 #include "linkedlist.h"
 
+static void
+linkedlist_iter_calculate(struct linkedlist_s *l,
+                          struct node_s **n,
+                          size_t i,
+                          int *dir)
+{
+	if (l->iter)
+	{
+		*dir = 1;
+		*n = l->head;
+		if (i < l->iterpos)
+		{
+			if (l->iterpos - i <= i)
+			{
+				*n = l->iter;
+				*dir = -1;
+			}
+			else
+			{
+				l->iterpos = 0;
+			}
+		}
+		else if (i > l->iterpos)
+		{
+			if (i - l->iterpos > l->len - i)
+			{
+				*n = l->tail;
+				l->iterpos = l->len - 1;
+				*dir = -1;
+			}
+			else
+			{
+				*n = l->iter;
+			}
+		}
+	}
+	else
+	{
+		*n = l->iter = l->head;
+		l->iterpos = 0;
+		*dir = 1;
+	}
+	return;
+}
+
 struct linkedlist_s *
 linkedlist_init()
 {
@@ -15,7 +60,9 @@ linkedlist_init()
 	                         malloc(sizeof(struct linkedlist_s));
 	l->head = NULL;
 	l->tail = NULL;
+	l->iter = NULL;
 	l->len = 0;
+	l->iterpos = 0;
 	return l;
 }
 
@@ -60,13 +107,36 @@ void *
 linkedlist_remove(struct linkedlist_s *l,
                   size_t i)
 {
+	int dir;
 	struct node_s *n;
 	void *ptr;
 	if (!l || i >= l->len)
 		return NULL;
-	n = l->head;
-	while (i-- > 0)
-		n = n->next;
+	if (l->iter && i == l->iterpos)
+	{
+		n = l->iter;
+	}
+	else if (i == 0)
+	{
+		n = l->head;
+	}
+	else if (i == l->len - 1)
+	{
+		n = l->tail;
+	}
+	else
+	{
+		linkedlist_iter_calculate(l, &n, i, &dir);
+		while (l->iterpos != i)
+		{
+			if (dir > 0)
+				n = n->next;
+			else if (dir < 0)
+				n = n->last;
+			l->iterpos += dir;
+		}
+		l->iter = n;
+	}
 	if (l->head == n)
 		l->head = n->next;
 	else
@@ -77,6 +147,26 @@ linkedlist_remove(struct linkedlist_s *l,
 		n->next->last = n->last;
 	l->len--;
 	ptr = n->ptr;
+	if (l->iter && i == l->iterpos)
+	{
+		if (n->last)
+		{
+			--l->iterpos;
+			l->iter = n->last;
+		}
+		else if (n->next)
+		{
+			l->iter = n->next;
+		}
+		else
+		{
+			l->iter = NULL;
+		}
+	}
+	else if (l->iter && i < l->iterpos)
+	{
+		--l->iterpos;
+	}
 	free(n);
 	return ptr;
 }
@@ -85,12 +175,22 @@ void *
 linkedlist_get(struct linkedlist_s *l,
                size_t i)
 {
+	int dir;
 	struct node_s *n;
 	if (!l || i >= l->len)
 		return NULL;
-	n = l->head;
-	while (i-- > 0)
-		n = n->next;
+	if (l->iter && i == l->iterpos)
+		return l->iter->ptr;
+	linkedlist_iter_calculate(l, &n, i, &dir);
+	while (l->iterpos != i)
+	{
+		if (dir > 0)
+			n = n->next;
+		else if (dir < 0)
+			n = n->last;
+		l->iterpos += dir;
+	}
+	l->iter = n;
 	return n->ptr;
 }
 
