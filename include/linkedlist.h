@@ -50,6 +50,12 @@ void                *linkedlist_remove(struct linkedlist_s *, size_t);
  */
 void                *linkedlist_get(struct linkedlist_s *, size_t);
 /*
+ * Search a linked list for an element and store the index it is found in.
+ * If the element is found, 1 is returned, otherwise 0.
+ * If an error occured, 0 is returned.
+ */
+int                  linkedlist_search(struct linkedlist_s *, void *, size_t *);
+/*
  * Get the size of a linked list, or return 0 in case of error.
  */
 size_t               linkedlist_size(struct linkedlist_s *);

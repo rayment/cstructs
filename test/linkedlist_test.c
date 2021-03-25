@@ -26,6 +26,7 @@ main(int argc,
 	int i;
 	char *s;
 	void *ptr;
+	size_t idx;
 	struct linkedlist_s *l;
 
 	(void) argc;
@@ -54,6 +55,18 @@ main(int argc,
 	, ptr == (void *) s, "linkedlist_get(l, 1) == s"
 	);
 	TEST(
+		i = linkedlist_search(l, &i, &idx);
+	, i == 1 && idx == 0, "linkedlist_search(l, i, &idx) == 1, idx == 0"
+	);
+	TEST(
+		i = linkedlist_search(l, s, &idx);
+	, i == 1 && idx == 1, "linkedlist_search(l, s, &idx) == 1, idx == 1"
+	);
+	TEST(
+		i = linkedlist_search(l, NULL, &idx);
+	, i == 0, "linkedlist_search(l, NULL, &idx) == 0"
+	);
+	TEST(
 		ptr = linkedlist_remove(l, 0);
 	, ptr == (void *) &i, "linkedlist_remove(l, 0) == &i"
 	);
@@ -65,9 +78,6 @@ main(int argc,
 		;
 	, linkedlist_size(l) == 0, "linkedlist_size(l) == 0"
 	);
-/*	TEST(
-
-	);
-*/	return EXIT_SUCCESS;
+	return EXIT_SUCCESS;
 }
 

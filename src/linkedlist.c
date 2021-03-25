@@ -94,6 +94,30 @@ linkedlist_get(struct linkedlist_s *l,
 	return n->ptr;
 }
 
+int
+linkedlist_search(struct linkedlist_s *l,
+                  void *val,
+                  size_t *i)
+{
+	struct node_s *n;
+	size_t j;
+	if (!l)
+		return 0;
+	n = l->head;
+	j = 0;
+	while (j < l->len)
+	{
+		if (n->ptr == val)
+		{
+			*i = j;
+			return 1;
+		}
+		++j;
+		n = n->next;
+	}
+	return 0;
+}
+
 size_t
 linkedlist_size(struct linkedlist_s *l)
 {
