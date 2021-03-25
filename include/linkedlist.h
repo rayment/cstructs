@@ -36,23 +36,23 @@ struct linkedlist_s *linkedlist_init();
 void                 linkedlist_free(struct linkedlist_s *);
 /*
  * Add an element to the end of a linked list.
- * If an error occured, NULL is returned.
+ * If an error occurred, NULL is returned.
  */
 void                *linkedlist_add(struct linkedlist_s *, void *);
 /*
  * Remove an element at a certain index from a linked list and return it.
- * If an error occured, NULL is returned.
+ * If an error occurred, NULL is returned.
  */
 void                *linkedlist_remove(struct linkedlist_s *, size_t);
 /*
  * Get an element at a certain index from a linked list and return it.
- * If an error occured, NULL is returned.
+ * If an error occurred, NULL is returned.
  */
 void                *linkedlist_get(struct linkedlist_s *, size_t);
 /*
  * Search a linked list for an element and store the index it is found in.
  * If the element is found, 1 is returned, otherwise 0.
- * If an error occured, 0 is returned.
+ * If an error occurred, 0 is returned.
  */
 int                  linkedlist_search(struct linkedlist_s *, void *, size_t *);
 /*
