@@ -45,6 +45,10 @@ void                *linkedlist_add(struct linkedlist_s *, void *);
  */
 void                *linkedlist_remove(struct linkedlist_s *, size_t);
 /*
+ * Remove all elements from a linked list. Does nothing if it is empty.
+ */
+void                 linkedlist_clear(struct linkedlist_s *);
+/*
  * Get an element at a certain index from a linked list and return it.
  * If an error occurred, NULL is returned.
  */

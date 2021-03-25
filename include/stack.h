@@ -35,6 +35,10 @@ void           *stack_push(struct stack_s *, void *);
  */
 void           *stack_pop(struct stack_s *);
 /*
+ * Remove all elements from a stack. Does nothing if it is empty.
+ */
+void            stack_clear(struct stack_s *);
+/*
  * Get the element on the top of the stack without removing it.
  * If the stack is empty or an error occurred, NULL is returned.
  */

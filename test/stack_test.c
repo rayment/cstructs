@@ -65,16 +65,16 @@ main(int argc,
 	, i == 0, "stack_search(l, NULL, &idx) == 0"
 	);
 	TEST(
+		;
+	, stack_size(l) == 2, "stack_size(l) == 2"
+	);
+	TEST(
 		ptr = stack_pop(l);
 	, ptr == (void *) s, "stack_pop(l) == s"
 	);
 	TEST(
-		ptr = stack_pop(l);
-	, ptr == (void *) &i, "stack_pop(l) == &i"
-	);
-	TEST(
-		;
-	, stack_size(l) == 0, "stack_size(l) == 0"
+		stack_clear(l);
+	, stack_size(l) == 0, "stack_clear(l), len == 0"
 	);
 	TEST(
 		i = stack_empty(l);

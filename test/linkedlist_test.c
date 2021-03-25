@@ -65,12 +65,12 @@ main(int argc,
 	, ptr == (void *) &i, "linkedlist_remove(l, 0) == &i"
 	);
 	TEST(
-		ptr = linkedlist_remove(l, 0);
-	, ptr == (void *) s, "linkedlist_remove(l, 0) == s"
+		;
+	, linkedlist_size(l) == 1, "linkedlist_size(l) == 1"
 	);
 	TEST(
-		;
-	, linkedlist_size(l) == 0, "linkedlist_size(l) == 0"
+		linkedlist_clear(l);
+	, linkedlist_size(l) == 0, "linkedlist_clear(l), len == 0"
 	);
 	TEST(
 		linkedlist_free(l);

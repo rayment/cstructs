@@ -36,6 +36,13 @@ stack_pop(struct stack_s *s)
 	return linkedlist_remove(s, s->len - 1);
 }
 
+void
+stack_clear(struct stack_s *s)
+{
+	linkedlist_clear(s);
+	return;
+}
+
 void *
 stack_peek(struct stack_s *s)
 {

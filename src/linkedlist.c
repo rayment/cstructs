@@ -69,16 +69,9 @@ linkedlist_init()
 void
 linkedlist_free(struct linkedlist_s *l)
 {
-	struct node_s *n, *tmp;
 	if (!l)
 		return;
-	n = l->head;
-	while (n)
-	{
-		tmp = n->next;
-		free(n);
-		n = tmp;
-	}
+	linkedlist_clear(l);
 	free(l);
 	return;
 }
@@ -169,6 +162,27 @@ linkedlist_remove(struct linkedlist_s *l,
 	}
 	free(n);
 	return ptr;
+}
+
+void
+linkedlist_clear(struct linkedlist_s *l)
+{
+	struct node_s *n, *tmp;
+	if (l->len == 0)
+		return;
+	n = l->head;
+	while (n)
+	{
+		tmp = n->next;
+		free(n);
+		n = tmp;
+	}
+	l->head = NULL;
+	l->tail = NULL;
+	l->iter = NULL;
+	l->iterpos = 0;
+	l->len = 0;
+	return;
 }
 
 void *
