@@ -6,7 +6,6 @@
  * Date created : 15/03/2021
  */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "common_test.h"
@@ -21,6 +20,8 @@ main(int argc,
 	void *ptr;
 	size_t idx;
 	struct linkedlist_s *l;
+
+	INIT();
 
 	(void) argc;
 	(void) argv;
@@ -75,6 +76,31 @@ main(int argc,
 		linkedlist_free(l);
 	, l, "linkedlist_free(l)"
 	);
+
+	l = linkedlist_init();
+	TIME(
+		for (i = 0; i < 100000; ++i)
+			linkedlist_add(l, &i);
+	, "100,000 element insertion"
+	);
+	TIME(
+		linkedlist_get(l, 0);
+	, "find first element"
+	);
+	TIME(
+		linkedlist_get(l, 50000);
+	, "find 50,000th element"
+	);
+	TIME(
+		linkedlist_get(l, 99999);
+	, "find last element"
+	);
+	TIME(
+		for (i = 0; i < 100000; ++i)
+			linkedlist_remove(l, 0);
+	, "100,000 element deletion"
+	);
+	linkedlist_free(l);
 	return EXIT_SUCCESS;
 }
 

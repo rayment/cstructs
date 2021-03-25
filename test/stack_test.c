@@ -6,7 +6,6 @@
  * Date created : 25/03/2021
  */
 
-#include <stdio.h>
 #include <stdlib.h>
 
 #include "common_test.h"
@@ -21,6 +20,8 @@ main(int argc,
 	void *ptr;
 	size_t idx;
 	struct stack_s *l;
+
+	INIT();
 
 	(void) argc;
 	(void) argv;
@@ -83,6 +84,19 @@ main(int argc,
 		stack_free(l);
 	, l, "stack_free(l)"
 	);
+
+	l = stack_init();
+	TIME(
+		for (i = 0; i < 100000; ++i)
+			stack_push(l, &i);
+	, "100,000 element push"
+	);
+	TIME(
+		for (i = 0; i < 100000; ++i)
+			stack_pop(l);
+	, "100,000 element pop"
+	);
+	stack_free(l);
 	return EXIT_SUCCESS;
 }
 
