@@ -33,7 +33,7 @@ test: $(TEST_BINARIES)
 	cd test && sh test.sh
 
 test/%: test/%.c
-	$(CC) $(CCFLAGS) $(INCLUDE) $(OBJECTS) $< -o $@
+	$(CC) -g $(CCFLAGS) $(INCLUDE) $(OBJECTS) $< -o $@
 
 .PHONY: all clean test
 

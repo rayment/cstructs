@@ -9,15 +9,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#include "common_test.h"
 #include "linkedlist.h"
-
-#define FAIL(x,y) if (!(x)) {\
-                      fprintf(stdout, "\rFAILURE: %s\n", y);\
-                      return EXIT_FAILURE;\
-                  } else {\
-                      fprintf(stdout, "\rSUCCESS: %s\n", y);\
-                  }
-#define TEST(x,y,z) fprintf(stdout, "TEST: %s", z); fflush(stdout); x FAIL(y,z)
 
 int
 main(int argc,
@@ -77,6 +70,10 @@ main(int argc,
 	TEST(
 		;
 	, linkedlist_size(l) == 0, "linkedlist_size(l) == 0"
+	);
+	TEST(
+		linkedlist_free(l);
+	, l, "linkedlist_free(l)"
 	);
 	return EXIT_SUCCESS;
 }
