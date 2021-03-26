@@ -101,17 +101,33 @@ main(int argc,
 			linkedlist_get(l, i);
 	, "access all elements via. linkedlist_get"
 	);
+	i = 0;
+	iter = linkedlist_iter_begin(l);
 	TIME(
-		iter = linkedlist_iter_begin(l);
 		while (linkedlist_iter_hasnext(iter))
+		{
 			linkedlist_iter_next(&iter);
+			++i;
+		}
 	, "access all elements via. forward iterator"
 	);
+	TEST(
+		;
+	, i == 100000, "iterator visited all elements"
+	);
+	i = 0;
+	iter = linkedlist_iter_end(l);
 	TIME(
-		iter = linkedlist_iter_end(l);
 		while (linkedlist_iter_hasprev(iter))
+		{
 			linkedlist_iter_prev(&iter);
+			++i;
+		}
 	, "access all elements via. backward iterator"
+	);
+	TEST(
+		;
+	, i == 100000, "iterator visited all elements"
 	);
 	TIME(
 		for (i = 0; i < 100000; ++i)

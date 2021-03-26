@@ -261,7 +261,7 @@ void *
 linkedlist_iter_next(struct linkedlist_iter_s **i)
 {
 	struct linkedlist_iter_s *tmp;
-	if (!i)
+	if (!i || !*i)
 		return NULL;
 	tmp = *i;
 	*i = (*i)->next;
@@ -272,7 +272,7 @@ void *
 linkedlist_iter_prev(struct linkedlist_iter_s **i)
 {
 	struct linkedlist_iter_s *tmp;
-	if (!i)
+	if (!i || !*i)
 		return NULL;
 	tmp = *i;
 	*i = (*i)->last;
