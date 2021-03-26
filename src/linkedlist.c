@@ -8,7 +8,8 @@
 
 #include "linkedlist.h"
 
-static void
+static
+void
 linkedlist_iter_calculate(struct linkedlist_s *l,
                           struct node_s **n,
                           size_t i,
@@ -238,5 +239,55 @@ linkedlist_size(struct linkedlist_s *l)
 	if (!l)
 		return 0;
 	return l->len;
+}
+
+struct linkedlist_iter_s *
+linkedlist_iter_begin(struct linkedlist_s *l)
+{
+	if (!l)
+		return NULL;
+	return l->head;
+}
+
+struct linkedlist_iter_s *
+linkedlist_iter_end(struct linkedlist_s *l)
+{
+	if (!l)
+		return NULL;
+	return l->tail;
+}
+
+void *
+linkedlist_iter_next(struct linkedlist_iter_s **i)
+{
+	struct linkedlist_iter_s *tmp;
+	if (!i)
+		return NULL;
+	tmp = *i;
+	*i = (*i)->next;
+	return tmp->ptr;
+}
+
+void *
+linkedlist_iter_prev(struct linkedlist_iter_s **i)
+{
+	struct linkedlist_iter_s *tmp;
+	if (!i)
+		return NULL;
+	tmp = *i;
+	*i = (*i)->last;
+	return tmp->ptr;
+}
+
+int
+linkedlist_iter_hasnext(struct linkedlist_iter_s *i)
+{
+	return i != NULL;
+}
+
+int
+linkedlist_iter_hasprev(struct linkedlist_iter_s *i)
+{
+	return i != NULL;
 }
 

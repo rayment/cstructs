@@ -26,6 +26,10 @@ linkedlist_s
 	size_t len, iterpos;
 };
 
+#define linkedlist_iter_s node_s
+
+/* List functions. */
+
 /*
  * Create a new linked list pointer containing 0 elements.
  */
@@ -63,6 +67,35 @@ int                  linkedlist_search(struct linkedlist_s *, void *, size_t *);
  * Get the size of a linked list, or return 0 in case of error.
  */
 size_t               linkedlist_size(struct linkedlist_s *);
+
+/* Iterator functions. */
+
+/*
+ * Get an iterator for a linked list pointing to the beginning of the list.
+ */
+struct linkedlist_iter_s *linkedlist_iter_begin(struct linkedlist_s *);
+/*
+ * Get an iterator for a linked list pointing to the end of the list.
+ */
+struct linkedlist_iter_s *linkedlist_iter_end(struct linkedlist_s *);
+/*
+ * Return the current iterator value and advance to the next element.
+ */
+void                     *linkedlist_iter_next(struct linkedlist_iter_s **);
+/*
+ * Return the current iterator value and advance to the previous element.
+ */
+void                     *linkedlist_iter_prev(struct linkedlist_iter_s **);
+/*
+ * Return 1 if an iterator has more elements in front of it,
+ * or 0 if not or in case of error.
+ */
+int                       linkedlist_iter_hasnext(struct linkedlist_iter_s *);
+/*
+ * Return 1 if an iterator has more elements behind it,
+ * or 0 if not or in case of error.
+ */
+int                       linkedlist_iter_hasprev(struct linkedlist_iter_s *);
 
 #endif /* _RAYMENT_FR_CSTRUCTS_LINKEDLIST_H */
 

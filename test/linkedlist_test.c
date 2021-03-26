@@ -20,6 +20,7 @@ main(int argc,
 	void *ptr;
 	size_t idx;
 	struct linkedlist_s *l;
+	struct linkedlist_iter_s *iter;
 
 	INIT();
 
@@ -85,15 +86,32 @@ main(int argc,
 	);
 	TIME(
 		linkedlist_get(l, 0);
-	, "find first element"
+	, "access first element"
 	);
 	TIME(
 		linkedlist_get(l, 50000);
-	, "find 50,000th element"
+	, "access 50,000th element"
 	);
 	TIME(
 		linkedlist_get(l, 99999);
-	, "find last element"
+	, "access last element"
+	);
+	TIME(
+		for (i = 0; i < 100000; ++i)
+			linkedlist_get(l, i);
+	, "access all elements via. linkedlist_get"
+	);
+	TIME(
+		iter = linkedlist_iter_begin(l);
+		while (linkedlist_iter_hasnext(iter))
+			linkedlist_iter_next(&iter);
+	, "access all elements via. forward iterator"
+	);
+	TIME(
+		iter = linkedlist_iter_end(l);
+		while (linkedlist_iter_hasprev(iter))
+			linkedlist_iter_prev(&iter);
+	, "access all elements via. backward iterator"
 	);
 	TIME(
 		for (i = 0; i < 100000; ++i)
