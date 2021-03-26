@@ -89,12 +89,12 @@ main(int argc,
 	TIME(
 		for (i = 0; i < 100000; ++i)
 			stack_push(l, &i);
-	, "100,000 element push"
+	, "100,000 element push", 1
 	);
 	TIME(
 		for (i = 0; i < 100000; ++i)
 			stack_pop(l);
-	, "100,000 element pop"
+	, "100,000 element pop", 1
 	);
 	stack_free(l);
 	return EXIT_SUCCESS;

@@ -82,57 +82,57 @@ main(int argc,
 	TIME(
 		for (i = 0; i < 100000; ++i)
 			linkedlist_add(l, &i);
-	, "100,000 element insertion"
+	, "100,000 element insertion", 1
 	);
 	TIME(
 		linkedlist_get(l, 0);
-	, "access first element"
+	, "access first element", 100
 	);
 	TIME(
 		linkedlist_get(l, 50000);
-	, "access 50,000th element"
+	, "access 50,000th element", 100
 	);
 	TIME(
 		linkedlist_get(l, 99999);
-	, "access last element"
+	, "access last element", 100
 	);
 	TIME(
 		for (i = 0; i < 100000; ++i)
 			linkedlist_get(l, i);
-	, "access all elements via. linkedlist_get"
+	, "access all elements via. linkedlist_get", 100
 	);
 	i = 0;
-	iter = linkedlist_iter_begin(l);
 	TIME(
+		iter = linkedlist_iter_begin(l);
 		while (linkedlist_iter_hasnext(iter))
 		{
 			linkedlist_iter_next(&iter);
 			++i;
 		}
-	, "access all elements via. forward iterator"
+	, "access all elements via. forward iterator", 100
 	);
 	TEST(
 		;
-	, i == 100000, "iterator visited all elements"
+	, i == 100000 * 100, "iterator visited all elements"
 	);
 	i = 0;
-	iter = linkedlist_iter_end(l);
 	TIME(
+		iter = linkedlist_iter_end(l);
 		while (linkedlist_iter_hasprev(iter))
 		{
 			linkedlist_iter_prev(&iter);
 			++i;
 		}
-	, "access all elements via. backward iterator"
+	, "access all elements via. backward iterator", 100
 	);
 	TEST(
 		;
-	, i == 100000, "iterator visited all elements"
+	, i == 100000 * 100, "iterator visited all elements"
 	);
 	TIME(
 		for (i = 0; i < 100000; ++i)
 			linkedlist_remove(l, 0);
-	, "100,000 element deletion"
+	, "100,000 element deletion", 1
 	);
 	linkedlist_free(l);
 	return EXIT_SUCCESS;
