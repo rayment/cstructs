@@ -20,7 +20,7 @@
 #define RESET  "\x1b[0m"
 
 #define INIT() int clockiter; clock_t tic, toc;\
-               double tmptime, besttime, worsttime, avgtime;
+               double tmptime, totaltime, besttime, worsttime, avgtime;
 
 #define FAIL(x,y) if (!(x)) {\
                       fprintf(stdout, "\r" RED "FAILURE: " RESET "%s\n", y);\
@@ -30,7 +30,8 @@
                   }
 #define TEST(x,y,z) fprintf(stdout, "TEST: %s", z); fflush(stdout); x FAIL(y,z)
 
-#define TIME(x,y,z) clockiter = 0; besttime = 0; worsttime = 0, avgtime = 0;\
+#define TIME(x,y,z) clockiter = 0;\
+                    totaltime = 0; besttime = 0; worsttime = 0, avgtime = 0;\
                     while (clockiter++ < z) {\
                         tic = clock(); x toc = clock();\
                         tmptime = (double) (toc - tic) / CLOCKS_PER_SEC;\
@@ -40,12 +41,14 @@
                         if (clockiter == 1 || tmptime > worsttime)\
                             worsttime = tmptime;\
                     }\
-                    avgtime /= z;\
+                    totaltime = avgtime; avgtime /= z;\
                     fprintf(stdout, YELLOW "BENCHMARK " RESET "(%s):\n"\
-                            "          avg: " BOLD "%fs" RESET " , best "\
-                            BOLD "%fs" RESET ", worst " BOLD "%fs" RESET\
-                            ", iters %d\n",\
-                            y, avgtime, besttime, worsttime, z);
+                            "          total: "\
+                            BOLD "%fs" RESET ", avg: "\
+                            BOLD "%fs" RESET ", best: "\
+                            BOLD "%fs" RESET ", worst: "\
+                            BOLD "%fs" RESET ", iters: %d\n",\
+                            y, totaltime, avgtime, besttime, worsttime, z);
 
 #endif /* _RAYMENT_FR_CSTRUCTS_TEST_COMMON_TEST_H */
 
